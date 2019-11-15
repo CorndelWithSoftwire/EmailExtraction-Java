@@ -5,9 +5,7 @@ import java.nio.file.Paths;
 
 public class Part1 {
 
-    public static void extractSoftwireEmails(String filename) throws Exception {
-
-        String input = Files.readString(Paths.get(filename));
+    public static void extractSoftwireEmails(String input) {
 
         int counter = 0;
 
