@@ -13,6 +13,7 @@ public class Part2 {
         Matcher matcher = pattern.matcher(input);
 
         int count = 0;
+
         while (matcher.find()) {
             count ++;
         }

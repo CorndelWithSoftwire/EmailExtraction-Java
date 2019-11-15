@@ -8,16 +8,17 @@ public class Part1 {
     public static void extractSoftwireEmails(String input) {
 
         String softwireString = "@softwire.com ";
-        int counter = 0;
+
+        int count = 0;
 
         for (int i = 0; i < input.length() - softwireString.length() + 1; i++) {
             if (input.substring(i, i + softwireString.length()).equals(softwireString)) {
-                counter += 1;
+                count ++;
             }
         }
 
         System.out.println("Part 1 - Substring Matching");
-        System.out.println(String.format("Occurences of '@softwire.com': %s", counter));
+        System.out.println(String.format("Occurences of '@softwire.com': %s", count));
         System.out.println();
     }
 }
