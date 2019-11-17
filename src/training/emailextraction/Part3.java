@@ -7,14 +7,13 @@ import java.util.stream.Collectors;
 
 public class Part3 {
 
-    public static void extractTopEmailAddresses(String input, int limit) {
+    public static void extractEmailDomains(String input) {
 
-        HashMap<String, Integer> domains = extractEmailDomains(input);
-        HashMap<String, Integer> topDomains = getTopDomains(domains, limit);
-        printDomains(topDomains, limit);
+        HashMap<String, Integer> domains = createDomainMap(input);
+        printDomains(domains);
     }
 
-    private static HashMap<String, Integer> extractEmailDomains(String input) {
+    private static HashMap<String, Integer> createDomainMap(String input) {
 
         HashMap<String, Integer> domainMap = new HashMap<>();
 
@@ -28,21 +27,12 @@ public class Part3 {
         return domainMap;
     }
 
-    private static HashMap<String, Integer> getTopDomains(HashMap<String, Integer> domainMap, int limit) {
+    private static void printDomains(HashMap<String, Integer> domains) {
 
-        return domainMap.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(limit)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                        (oldKey, newKey) -> oldKey, LinkedHashMap::new));
-    }
-
-    private static void printDomains(HashMap<String, Integer> domains, int limit) {
-
-        System.out.println("Part 3 - Top Domains\n");
-        System.out.printf("Top %s addresses are:\n\n", limit);
+        System.out.println("Part 3 - All Domains\n");
         domains.forEach((domain, count) -> {
-            System.out.printf("%s\t- %s\n", count, domain);
-    });
+            System.out.printf("%s - %s\n", domain, count);
+        });
+        System.out.println("\n");
     }
 }

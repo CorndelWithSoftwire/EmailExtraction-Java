@@ -15,6 +15,10 @@ public class Main {
 
         Part1.extractSoftwireEmails(input);
         Part2.extractSoftwireEmailsRegex(input);
-        Part3.extractTopEmailAddresses(input, 10);
+        Part3.extractEmailDomains(input);
+
+        Stretch.extractTopEmailDomains(input, 10);
+        Stretch.extractDomainsWithMinimumFrequency(input, 250);
+        Stretch.extractTopLevelDomains(input);
     }
 }
