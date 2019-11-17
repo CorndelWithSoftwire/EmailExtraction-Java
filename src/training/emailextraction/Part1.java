@@ -18,7 +18,7 @@ public class Part1 {
         }
 
         System.out.println("Part 1 - Substring Matching");
-        System.out.println(String.format("Occurences of '@softwire.com': %s", count));
+        System.out.printf("Occurrences of '@softwire.com': %s\n\n", count);
         System.out.println();
     }
 }

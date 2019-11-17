@@ -19,7 +19,6 @@ public class Part2 {
         }
 
         System.out.println("Part 2 - Regex Matching");
-        System.out.println(String.format("Occurences of '@softwire.com': %s", count));
-        System.out.println();
+        System.out.printf("Occurrences of '@softwire.com': %s\n\n", count);
     }
 }
