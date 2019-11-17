@@ -7,7 +7,7 @@ public class Part2 {
 
     public static void extractSoftwireEmailsRegex(String input) {
 
-        String patternString = "@softwire.com ";
+        String patternString = "@softwire.com\\b";
 
         Pattern pattern = Pattern.compile(patternString);
         Matcher matcher = pattern.matcher(input);
@@ -18,7 +18,7 @@ public class Part2 {
             count ++;
         }
 
-        System.out.println("Part 2 - Regex Matching");
-        System.out.printf("Occurrences of '@softwire.com': %s\n\n", count);
+        System.out.println("Part 2 - Regex Matching\n");
+        System.out.printf("Occurrences of '@softwire.com': %s\n\n\n", count);
     }
 }

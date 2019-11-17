@@ -9,29 +9,28 @@ public class Part3 {
 
     public static void extractTopEmailAddresses(String input, int limit) {
 
-        HashMap<String, Integer> domains = extractDomains(input);
+        HashMap<String, Integer> domains = extractEmailDomains(input);
         HashMap<String, Integer> topDomains = getTopDomains(domains, limit);
         printDomains(topDomains, limit);
     }
 
-    private static HashMap<String, Integer> extractDomains(String input) {
+    private static HashMap<String, Integer> extractEmailDomains(String input) {
 
-        HashMap<String, Integer> domains = new HashMap<>();
+        HashMap<String, Integer> domainMap = new HashMap<>();
 
-        String emailPatternString = "\\b[A-Za-z0-9.'_%+-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})\\b";
-        Pattern pattern = Pattern.compile(emailPatternString);
-        Matcher matcher = pattern.matcher(input);
+        Pattern emailPattern = Pattern.compile("\\b[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})\\b");
+        Matcher emailMatcher = emailPattern.matcher(input.toLowerCase(Locale.UK));
 
-        while (matcher.find()) {
-            domains.merge(matcher.group(1), 1, Integer::sum);
+        while (emailMatcher.find()) {
+            domainMap.merge(emailMatcher.group(1), 1, Integer::sum);
         }
 
-        return domains;
+        return domainMap;
     }
 
-    private static HashMap<String, Integer> getTopDomains(HashMap<String, Integer> hashMap, int limit) {
+    private static HashMap<String, Integer> getTopDomains(HashMap<String, Integer> domainMap, int limit) {
 
-        return hashMap.entrySet().stream()
+        return domainMap.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(limit)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
@@ -40,12 +39,10 @@ public class Part3 {
 
     private static void printDomains(HashMap<String, Integer> domains, int limit) {
 
-        System.out.println("Part 3 - Top Domains");
-
-        System.out.printf("Top %s addresses are:\n", limit);
-
+        System.out.println("Part 3 - Top Domains\n");
+        System.out.printf("Top %s addresses are:\n\n", limit);
         domains.forEach((domain, count) -> {
-            System.out.printf("%s - %s\n", domain, count);
-        });
+            System.out.printf("%s\t- %s\n", count, domain);
+    });
     }
 }
