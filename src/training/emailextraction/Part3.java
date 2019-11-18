@@ -3,22 +3,22 @@ package training.emailextraction;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class Part3 {
 
     public static void extractEmailDomains(String input) {
 
-        HashMap<String, Integer> domains = createDomainMap(input);
+        String emailRegexWithDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})\\b";
+        HashMap<String, Integer> domains = createDomainMap(input, emailRegexWithDomainGroup);
         printDomains(domains);
     }
 
-    private static HashMap<String, Integer> createDomainMap(String input) {
+    private static HashMap<String, Integer> createDomainMap(String input, String regex) {
 
         HashMap<String, Integer> domainMap = new HashMap<>();
 
-        Pattern emailPattern = Pattern.compile("\\b[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})\\b");
-        Matcher emailMatcher = emailPattern.matcher(input.toLowerCase(Locale.UK));
+        Pattern emailPattern = Pattern.compile(regex);
+        Matcher emailMatcher = emailPattern.matcher(input);
 
         while (emailMatcher.find()) {
             domainMap.merge(emailMatcher.group(1), 1, Integer::sum);
@@ -29,10 +29,10 @@ public class Part3 {
 
     private static void printDomains(HashMap<String, Integer> domains) {
 
-        System.out.println("Part 3 - All Domains\n");
+        System.out.printf("%-20.20s %5.5s\n", "Domain", "Count");
         domains.forEach((domain, count) -> {
-            System.out.printf("%s - %s\n", domain, count);
+            System.out.printf("%-20.20s %5.5s\n", domain, count);
         });
-        System.out.println("\n");
+        System.out.println();
     }
 }

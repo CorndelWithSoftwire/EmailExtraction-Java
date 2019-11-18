@@ -7,34 +7,35 @@ import java.util.stream.Collectors;
 
 public class Stretch {
 
-    private static final String emailRegexWithDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})\\b";
-    private static final String emailRegexWithTopLevelDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9-]+)(\\.[a-z0-9.-]+)*\\.[a-z]{2,}\\b";
-
     public static void extractTopEmailDomains(String input, int limit) {
 
+        String emailRegexWithDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})\\b";
         HashMap<String, Integer> domains = createDomainMap(input, emailRegexWithDomainGroup);
         HashMap<String, Integer> topDomains = getTopDomains(domains, limit);
         printTopDomains(topDomains, limit);
     }
 
     public static void extractDomainsWithMinimumFrequency(String input, int min) {
+
+        String emailRegexWithDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})\\b";
         HashMap<String, Integer> domains = createDomainMap(input, emailRegexWithDomainGroup);
         HashMap<String, Integer> domainsWithMinFrequency = getDomainsWithMinFrequency(domains, min);
         printDomainsWithMinFrequency(domainsWithMinFrequency, min);
     }
 
     public static void extractTopLevelDomains(String input) {
+
+        String emailRegexWithTopLevelDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9-]+)(\\.[a-z0-9.-]+)*\\.[a-z]{2,}\\b";
         HashMap<String, Integer> domains = createDomainMap(input, emailRegexWithTopLevelDomainGroup);
         PrintTopLevelDomains(domains);
     }
-
 
     private static HashMap<String, Integer> createDomainMap(String input, String regex) {
 
         HashMap<String, Integer> domainMap = new HashMap<>();
 
         Pattern emailPattern = Pattern.compile(regex);
-        Matcher emailMatcher = emailPattern.matcher(input.toLowerCase(Locale.UK));
+        Matcher emailMatcher = emailPattern.matcher(input);
 
         while (emailMatcher.find()) {
             domainMap.merge(emailMatcher.group(1), 1, Integer::sum);
@@ -60,33 +61,30 @@ public class Stretch {
                         (oldKey, newKey) -> oldKey, LinkedHashMap::new));
     }
 
-
     private static void printTopDomains(HashMap<String, Integer> domains, int limit) {
 
-        System.out.println("Stretch - Top Domains\n");
-        System.out.printf("Top %s domains are:\n\n", limit);
+        System.out.printf("Top %s domains:\n%-20.20s %5.5s\n", limit, "Domain", "Count");
         domains.forEach((domain, count) -> {
-            System.out.printf("%s\t- %s\n", count, domain);
+            System.out.printf("%-20.20s %5.5s\n", domain, count);
         });
-        System.out.println("\n");
+        System.out.println();
     }
 
     private static void printDomainsWithMinFrequency(HashMap<String, Integer> domains, int min) {
 
-        System.out.println("Stretch - Top Domains\n");
-        System.out.printf("Domains with at least %s occurrences:\n\n", min);
+        System.out.printf("Domains with at least %s occurrences:\n%-20.20s %5.5s\n", min, "Domain", "Count");
         domains.forEach((domain, count) -> {
-            System.out.printf("%s - %s\n", domain, count);
+            System.out.printf("%-20.20s %5.5s\n", domain, count);
         });
-        System.out.println("\n");
+        System.out.println();
     }
 
     private static void PrintTopLevelDomains(HashMap<String, Integer> domains) {
 
-        System.out.println("Stretch - Top Level Domains\n");
+        System.out.printf("Top Level Domains:\n%-20.20s %5.5s\n", "Domain", "Count");
         domains.forEach((domain, count) -> {
-            System.out.printf("%s - %s\n", domain, count);
+            System.out.printf("%-20.20s %5.5s\n", domain, count);
         });
-        System.out.println("\n");
+        System.out.println();
     }
 }

@@ -1,23 +1,20 @@
 package training.emailextraction;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 public class Part1 {
 
     public static void extractSoftwireEmails(String input) {
 
-        String softwireString = "@softwire.com ";
+        // This string will not account for all whitespace possibilities, leading to an answer of 237
+        String softwireDomain = "@softwire.com ";
 
         int count = 0;
 
-        for (int i = 0; i < input.length() - softwireString.length() + 1; i++) {
-            if (input.substring(i, i + softwireString.length()).equals(softwireString)) {
+        for (int i = 0; i <= input.length() - softwireDomain.length(); i++) {
+            if (input.substring(i, i + softwireDomain.length()).equals(softwireDomain)) {
                 count ++;
             }
         }
 
-        System.out.println("Part 1 - Substring Matching\n");
-        System.out.printf("Occurrences of '@softwire.com': %s\n\n\n", count);
+        System.out.printf("Occurrences of '@softwire.com' using substring matching: %s\n\n", count);
     }
 }
