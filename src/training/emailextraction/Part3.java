@@ -9,8 +9,8 @@ public class Part3 {
     public static void extractEmailDomains(String input) {
 
         String emailRegexWithDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})\\b";
-        HashMap<String, Integer> domains = createDomainMap(input, emailRegexWithDomainGroup);
-        printDomains(domains);
+        HashMap<String, Integer> domainMap = createDomainMap(input, emailRegexWithDomainGroup);
+        printDomains(domainMap);
     }
 
     private static HashMap<String, Integer> createDomainMap(String input, String regex) {
