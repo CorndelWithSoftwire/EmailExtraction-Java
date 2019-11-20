@@ -9,7 +9,7 @@ public class Stretch {
 
     public static void extractTopEmailDomains(String input, int limit) {
 
-        String emailRegexWithDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})\\b";
+        String emailRegexWithDomainGroup = "(?<=\\s|^)[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})(?=\\s|$)";
         HashMap<String, Integer> domainMap = createDomainMap(input, emailRegexWithDomainGroup);
         Stream<Map.Entry<String, Integer>> topDomains = getTopDomains(domainMap, limit);
         printTopDomains(topDomains, limit);
@@ -17,17 +17,17 @@ public class Stretch {
 
     public static void extractDomainsWithMinimumFrequency(String input, int min) {
 
-        String emailRegexWithDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})\\b";
+        String emailRegexWithDomainGroup = "(?<=\\s|^)[a-z0-9.'_%+-]+@([a-z0-9.-]+\\.[a-z]{2,})(?=\\s|$)";
         HashMap<String, Integer> domainMap = createDomainMap(input, emailRegexWithDomainGroup);
         Stream<Map.Entry<String, Integer>> domainsWithMinFrequency = getDomainsWithMinFrequency(domainMap, min);
         printDomainsWithMinFrequency(domainsWithMinFrequency, min);
     }
 
-    public static void extractTopLevelDomains(String input) {
+    public static void extractNonTopLevelDomains(String input) {
 
-        String emailRegexWithTopLevelDomainGroup = "\\b[a-z0-9.'_%+-]+@([a-z0-9-]+)(\\.[a-z0-9.-]+)*\\.[a-z]{2,}\\b";
-        HashMap<String, Integer> domainMap = createDomainMap(input, emailRegexWithTopLevelDomainGroup);
-        printTopLevelDomains(domainMap);
+        String emailRegexWithNonTopLevelDomainGroup = "(?<=\\s|^)[a-z0-9.'_%+-]+@([a-z0-9-]+)(\\.[a-z0-9.-]+)*\\.[a-z]{2,}(?=\\s|$)";
+        HashMap<String, Integer> domainMap = createDomainMap(input, emailRegexWithNonTopLevelDomainGroup);
+        printNonTopLevelDomains(domainMap);
     }
 
     private static HashMap<String, Integer> createDomainMap(String input, String regex) {
@@ -75,9 +75,9 @@ public class Stretch {
         System.out.println();
     }
 
-    private static void printTopLevelDomains(HashMap<String, Integer> domains) {
+    private static void printNonTopLevelDomains(HashMap<String, Integer> domains) {
 
-        System.out.printf("Top Level Domains:\n%-20.20s %5.5s\n", "Domain", "Count");
+        System.out.printf("Non Top Level Domains:\n%-20.20s %5.5s\n", "Domain", "Count");
         domains.forEach((domain, count) -> {
             System.out.printf("%-20.20s %5.5s\n", domain, count);
         });

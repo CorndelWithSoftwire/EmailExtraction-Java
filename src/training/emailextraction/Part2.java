@@ -7,7 +7,7 @@ public class Part2 {
 
     public static void extractSoftwireEmailsRegex(String input) {
 
-        String patternString = "\\b[a-z0-9.'_%+-]+@softwire\\.com\\b";
+        String patternString = "(?<=\\s|^)[a-z0-9.'_%+-]+@softwire\\.com(?=\\s|$)";
 
         Pattern pattern = Pattern.compile(patternString);
         Matcher matcher = pattern.matcher(input);

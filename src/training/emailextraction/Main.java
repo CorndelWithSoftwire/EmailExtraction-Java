@@ -10,7 +10,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String input = new String(Files.readAllBytes(Paths.get("sample.txt")), StandardCharsets.UTF_8).toLowerCase(Locale.UK);
+        String input = new String(Files.readAllBytes(Paths.get("sample.txt")), StandardCharsets.UTF_8)
+                .toLowerCase(Locale.UK);
 
         System.out.println("Part 1");
         Part1.extractSoftwireEmails(input);
@@ -24,6 +25,6 @@ public class Main {
         System.out.println("Stretch Goals");
         Stretch.extractTopEmailDomains(input, 10);
         Stretch.extractDomainsWithMinimumFrequency(input, 63);
-        Stretch.extractTopLevelDomains(input);
+        Stretch.extractNonTopLevelDomains(input);
     }
 }
