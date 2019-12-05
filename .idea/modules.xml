@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/email-extraction-java.iml" filepath="$PROJECT_DIR$/email-extraction-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EmailExtraction-Java.iml" filepath="$PROJECT_DIR$/EmailExtraction-Java.iml" />
     </modules>
   </component>
 </project>
